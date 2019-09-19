@@ -1,0 +1,11 @@
+10
+cat - coshka, coteyka
+dog - sobaka, pesik
+bad - plohoi
+good - horoshii, super
+excellent - super
+ugly - uzasnii, plohoi
+chair - stul, tron
+throne - tron
+cup - chaska
+dish - tarelka
