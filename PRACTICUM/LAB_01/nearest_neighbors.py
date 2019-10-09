@@ -1,6 +1,7 @@
 from sklearn.neighbors import NearestNeighbors
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
+from distances import euclidean_distance, cosine_distance
 
 
 class KNNClassifier:
@@ -9,7 +10,7 @@ class KNNClassifier:
                  strategy='my_own',
                  metric='euclidean',
                  weights=False,
-                 test_block_size=0.2
+                 test_block_size=100
                  ):
         """
         params:
@@ -31,7 +32,10 @@ class KNNClassifier:
         self.k = k
         self.strategy = strategy
         self.metric = metric
-        self.weights = weights
+        if weights:
+            self.weights = 'distance'
+        else:
+            self.weights = 'uniform'
         self.test_block_size = test_block_size
 
     def fit(self, X, y):
@@ -44,6 +48,7 @@ class KNNClassifier:
         self.model = None
         if self.strategy != 'my_own':
             self.model = NearestNeighbors(n_neighbors=self.k, algorithm=self.strategy)
+            self.X_train = X
             self.y_train = y
             self.model.fit(X, y)
         else:
@@ -67,9 +72,29 @@ class KNNClassifier:
         """
 
         if self.strategy != 'my_own':
-            self.distances, self.neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
+            self.distances, \
+                self.neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
         else:
-            pass
+            if self.metric == 'euclidean':
+                self.distances = euclidean_distance(X, self.X_train)
+                self.neigh_idxs = np.argsort(self.distances,
+                                             axis=1,
+                                             kind='quicksort')[:, :self.k]
+                if return_distance:
+                    self.distances = np.sort(self.distances,
+                                             axis=1,
+                                             kind='quicksort')[:, :self.k]
+
+            elif self.metric == 'cosine':
+                self.distances = cosine_distance(X, self.X_train),
+                self.neigh_idxs = np.argsort(self.distances,
+                                             axis=1,
+                                             kind='quicksort')[:, :self.k]
+                if return_distance:
+                    self.distances = np.sort(self.distances,
+                                             axis=1,
+                                             kind='quicksort')[:, :self.k]
+
         if return_distance:
             return self.distances, self.neigh_idxs
         return self.neigh_idxs
@@ -83,12 +108,20 @@ class KNNClassifier:
             * numpy array with size X.shape[0] of predictions for test objects from X
         """
 
-        neigh_idxs = self.find_kneighbors(X, False)
         preds = np.zeros((X.shape[0]))
-        for i in range(neigh_idxs.shape[0]):
-            pred = np.zeros((neigh_idxs.shape[1]))
-            for j in range(neigh_idxs.shape[1]):
-                pred[j] = self.y_train[neigh_idxs[i, j]]
-            counts = np.bincount(pred.astype(int))
-            preds[i] = np.argmax(counts)
+        split_size = X.shape[0] // self.test_block_size + \
+                     int(X.shape[0] % self.test_block_size != 0)
+        for i, split in enumerate(np.array_split(X, split_size)):
+            if i != 0:
+                del self.distances
+                del self.neigh_idxs
+            self.find_kneighbors(split, True)
+            print((1/ self.distances[self.neigh_idxs % self.test_block_size] * self.y_train[self.neigh_idxs]).shape)
+            # for j, idx in enumerate(self.neigh_idxs):
+            #     if self.weights == 'distance':
+            #         counts = np.bincount(self.y_train[idx],
+            #                              weights=1 / self.distances[j, :self.k])
+            #     elif self.weights == 'uniform':
+            #         counts = np.bincount(self.y_train[idx])
+            #     preds[j + i * self.test_block_size] = np.argmax(counts)
         return preds

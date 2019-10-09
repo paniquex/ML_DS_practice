@@ -11,10 +11,9 @@ def euclidean_distance(X, Y):
                                                                               j-th vector from Y
     """
 
-    result = np.zeros((X.shape[0], Y.shape[0]))
-    for i, x_row in enumerate(X):
-        result[i, :] = np.sqrt(np.sum((x_row - Y) ** 2, axis=1))
-    return result
+    X_sqr = np.sum(X ** 2, axis=1)[:, None]
+    Y_sqr = np.sum(Y ** 2, axis=1)
+    return np.sqrt(X_sqr - 2 * np.dot(X, Y.T) + Y_sqr)
 
 
 def cosine_distance(X, Y):
@@ -27,7 +26,7 @@ def cosine_distance(X, Y):
                                                                               j-th vector from Y
     """
 
-    result = np.zeros((X.shape[0], Y.shape[0]))
-    for i, x_row in enumerate(X):
-        result[i, :] = np.dot(x_row, Y) / (np.linalg.norm(x_row)) / np.linalg.norm(Y, axis=1)
-    return result
+    result = np.dot(X, Y.T)
+    result /= np.sqrt(np.sum(X ** 2, axis=1))[:, None]
+    result /= np.sqrt(np.sum(Y ** 2, axis=1))
+    return 1 - result
