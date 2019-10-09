@@ -28,12 +28,19 @@ class KNNClassifier:
             * test_block_size - size of test block
         """
 
+        self.X_train = None
+        self.y_train = None
+        self.distances = None
+        self.neigh_idxs = None
+        self.model = None
         self.k = k
         self.strategy = strategy
         self.metric = metric
         self.eps = 1e-5
         self.weights = weights
-        if self.strategy != 'my_own':
+        if self.strategy == 'brute':
+            self.model = NearestNeighbors(n_neighbors=self.k, algorithm=self.strategy, metric=self.metric)
+        elif self.strategy != 'my_own':
             self.model = NearestNeighbors(n_neighbors=self.k, algorithm=self.strategy)
         else:
             self.model = None
@@ -46,9 +53,10 @@ class KNNClassifier:
             * y - targets for train data
         """
 
-        self.y_train = y
+        self.y_train = y.astype(int)
+        self.k = np.min([self.y_train.shape[0], self.k])
         if self.strategy != 'my_own':
-            self.model.fit(X, y)
+            self.model.fit(X, self.y_train)
         else:
             self.X_train = X
 
@@ -69,31 +77,27 @@ class KNNClassifier:
         """
 
         if self.strategy != 'my_own':
-            self.distances, \
-            self.neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
+            distances, \
+            neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
         else:
             if self.metric == 'euclidean':
-                self.distances = euclidean_distance(X, self.X_train)
-                self.neigh_idxs = np.argsort(self.distances,
-                                             axis=1,
-                                             kind='quicksort')[:, :self.k]
+                distances = euclidean_distance(X, self.X_train)
+                neigh_idxs = np.argsort(distances,
+                                        axis=1)[:, :self.k]
                 if return_distance:
-                    self.distances = np.sort(self.distances,
-                                             axis=1,
-                                             kind='quicksort')[:, :self.k]
+                    distances = np.sort(distances,
+                                        axis=1)[:, :self.k]
 
             elif self.metric == 'cosine':
-                self.distances = cosine_distance(X, self.X_train),
-                self.neigh_idxs = np.argsort(self.distances,
-                                             axis=1,
-                                             kind='quicksort')[:, :self.k]
+                distances = cosine_distance(X, self.X_train)
+                neigh_idxs = np.argsort(distances,
+                                        axis=1)[:, :self.k]
                 if return_distance:
-                    self.distances = np.sort(self.distances,
-                                             axis=1,
-                                             kind='quicksort')[:, :self.k]
+                    distances = np.sort(distances,
+                                        axis=1)[:, :self.k]
         if return_distance:
-            return self.distances, self.neigh_idxs
-        return self.neigh_idxs
+            return distances, neigh_idxs
+        return neigh_idxs
 
     def predict(self, X):
         """
@@ -103,21 +107,34 @@ class KNNClassifier:
         return values:
             * numpy array with size X.shape[0] of predictions for test objects from X
         """
-        
-        self.y_train = self.y_train.astype(int)
+
+        if self.test_block_size > X.shape[0]:
+            self.test_block_size = X.shape[0]
         preds = np.zeros(X.shape[0])
         split_size = X.shape[0] // self.test_block_size + \
                      int(X.shape[0] % self.test_block_size != 0)
+        classes = np.array(np.unique(self.y_train))
+        last_idx = 0
         for i, split in enumerate(np.array_split(X, split_size)):
-            if i != 0:
-                del self.distances
-                del self.neigh_idxs
-            self.find_kneighbors(split, True)
-            for j, idx in enumerate(self.neigh_idxs):
+            distances, neigh_idxs = self.find_kneighbors(split, True)
+            for j, idx in enumerate(neigh_idxs):
+                counts = np.zeros(len(classes))
+                for c in classes:
+                    if self.weights:
+                        weights = 1 / (distances[j] + self.eps)
+                        counts[c] = np.sum((self.y_train[idx] == c) * weights)
+                    else:
+                        counts[c] = np.sum(self.y_train[idx] == c)
+                preds[j + i * split.shape[0]] = np.argmax(counts)
+        distances, neigh_idxs = self.find_kneighbors(X[last_idx:], True)
+        for j, idx in enumerate(neigh_idxs):
+            counts = np.zeros(len(classes))
+            for c in classes:
                 if self.weights:
-                    counts = np.bincount(self.y_train[idx],
-                                         weights=1 / (self.distances[j, :self.k] + self.eps))
+                    weights = 1 / (distances[j] + self.eps)
+                    counts[c] = np.sum((self.y_train[idx] == c) * weights)
                 else:
-                    counts = np.bincount(self.y_train[idx])
-                preds[j + i * self.test_block_size] = np.argmax(counts)
+                    counts[c] = np.sum(self.y_train[idx] == c)
+                preds[last_idx + j] = np.argmax(counts)
         return preds
+    
