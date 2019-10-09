@@ -125,7 +125,6 @@ class KNNClassifier:
                     self.distances = np.sort(self.distances,
                                              axis=1,
                                              kind='quicksort')[:, :self.k]
-
         if return_distance:
             return self.distances, self.neigh_idxs
         return self.neigh_idxs
