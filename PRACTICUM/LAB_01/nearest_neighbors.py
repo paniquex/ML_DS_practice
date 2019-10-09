@@ -1,7 +1,36 @@
 from sklearn.neighbors import NearestNeighbors
-from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
-from distances import euclidean_distance, cosine_distance
+
+
+def euclidean_distance(X, Y):
+    """
+    params:
+        * X - np.array with size N x D
+        * Y - np.array with size M x D
+    return values:
+        * np.array with size N x M, where [i, j] - euclidean distance between i-th vector from X and
+                                                                              j-th vector from Y
+    """
+
+    X_sqr = np.sum(X ** 2, axis=1)[:, None]
+    Y_sqr = np.sum(Y ** 2, axis=1)
+    return np.sqrt(X_sqr - 2 * np.dot(X, Y.T) + Y_sqr)
+
+
+def cosine_distance(X, Y):
+    """
+    params:
+        * X - np.array with size N x D
+        * Y - np.array with size M x D
+    return values:
+        * np.array with size N x M, where [i, j] - cosine distance between i-th vector from X and
+                                                                              j-th vector from Y
+    """
+
+    result = np.dot(X, Y.T)
+    result /= np.sqrt(np.sum(X ** 2, axis=1))[:, None]
+    result /= np.sqrt(np.sum(Y ** 2, axis=1))
+    return 1 - result
 
 
 class KNNClassifier:
@@ -32,10 +61,16 @@ class KNNClassifier:
         self.k = k
         self.strategy = strategy
         self.metric = metric
+        self.eps = 1e-5
+        self.weights = None
         if weights:
             self.weights = 'distance'
         else:
             self.weights = 'uniform'
+        if self.strategy != 'my_own':
+            self.model = NearestNeighbors(n_neighbors=self.k, algorithm=self.strategy)
+        else:
+            self.model = None
         self.test_block_size = test_block_size
 
     def fit(self, X, y):
@@ -45,15 +80,11 @@ class KNNClassifier:
             * y - targets for train data
         """
 
-        self.model = None
+        self.y_train = y
         if self.strategy != 'my_own':
-            self.model = NearestNeighbors(n_neighbors=self.k, algorithm=self.strategy)
-            self.X_train = X
-            self.y_train = y
             self.model.fit(X, y)
         else:
             self.X_train = X
-            self.y_train = y
 
     def find_kneighbors(self, X, return_distance):
         """
@@ -73,7 +104,7 @@ class KNNClassifier:
 
         if self.strategy != 'my_own':
             self.distances, \
-                self.neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
+            self.neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
         else:
             if self.metric == 'euclidean':
                 self.distances = euclidean_distance(X, self.X_train)
@@ -108,7 +139,7 @@ class KNNClassifier:
             * numpy array with size X.shape[0] of predictions for test objects from X
         """
 
-        preds = np.zeros((X.shape[0]))
+        preds = np.zeros(X.shape[0])
         split_size = X.shape[0] // self.test_block_size + \
                      int(X.shape[0] % self.test_block_size != 0)
         for i, split in enumerate(np.array_split(X, split_size)):
@@ -116,12 +147,11 @@ class KNNClassifier:
                 del self.distances
                 del self.neigh_idxs
             self.find_kneighbors(split, True)
-            print((1/ self.distances[self.neigh_idxs % self.test_block_size] * self.y_train[self.neigh_idxs]).shape)
-            # for j, idx in enumerate(self.neigh_idxs):
-            #     if self.weights == 'distance':
-            #         counts = np.bincount(self.y_train[idx],
-            #                              weights=1 / self.distances[j, :self.k])
-            #     elif self.weights == 'uniform':
-            #         counts = np.bincount(self.y_train[idx])
-            #     preds[j + i * self.test_block_size] = np.argmax(counts)
+            for j, idx in enumerate(self.neigh_idxs):
+                if self.weights == 'distance':
+                    counts = np.bincount(self.y_train[idx],
+                                         weights=1 / (self.distances[j, :self.k] + self.eps))
+                elif self.weights == 'uniform':
+                    counts = np.bincount(self.y_train[idx])
+                preds[j + i * self.test_block_size] = np.argmax(counts)
         return preds
