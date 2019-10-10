@@ -113,28 +113,15 @@ class KNNClassifier:
         preds = np.zeros(X.shape[0])
         split_size = X.shape[0] // self.test_block_size + \
                      int(X.shape[0] % self.test_block_size != 0)
-        classes = np.array(np.unique(self.y_train))
-        last_idx = 0
+        curr_idx = 0
         for i, split in enumerate(np.array_split(X, split_size)):
             distances, neigh_idxs = self.find_kneighbors(split, True)
             for j, idx in enumerate(neigh_idxs):
-                counts = np.zeros(len(classes))
-                for c in classes:
-                    if self.weights:
-                        weights = 1 / (distances[j] + self.eps)
-                        counts[c] = np.sum((self.y_train[idx] == c) * weights)
-                    else:
-                        counts[c] = np.sum(self.y_train[idx] == c)
-                preds[j + i * split.shape[0]] = np.argmax(counts)
-        distances, neigh_idxs = self.find_kneighbors(X[last_idx:], True)
-        for j, idx in enumerate(neigh_idxs):
-            counts = np.zeros(len(classes))
-            for c in classes:
                 if self.weights:
-                    weights = 1 / (distances[j] + self.eps)
-                    counts[c] = np.sum((self.y_train[idx] == c) * weights)
+                    counts = np.bincount(self.y_train[idx],
+                                         weights=1 / (distances[j, :self.k] + self.eps))
                 else:
-                    counts[c] = np.sum(self.y_train[idx] == c)
-                preds[last_idx + j] = np.argmax(counts)
+                    counts = np.bincount(self.y_train[idx])
+                preds[j + curr_idx] = np.argmax(counts)
+            curr_idx += split.shape[0]
         return preds
-    
