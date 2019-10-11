@@ -27,6 +27,6 @@ def cosine_distance(X, Y):
     """
 
     result = np.dot(X, Y.T)
-    result /= np.sqrt(np.sum(X ** 2, axis=1))[:, None]
-    result /= np.sqrt(np.sum(Y ** 2, axis=1))
+    result = result / np.sqrt(np.sum(X ** 2, axis=1))[:, None]
+    result = result / np.sqrt(np.sum(Y ** 2, axis=1))
     return 1 - result
