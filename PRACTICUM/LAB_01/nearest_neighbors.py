@@ -1,6 +1,6 @@
-from sklearn.neighbors import NearestNeighbors
 import numpy as np
-from distances import euclidean_distance, cosine_distance
+from sklearn.neighbors import NearestNeighbors
+from distances import cosine_distance, euclidean_distance
 
 
 class KNNClassifier:
@@ -129,7 +129,7 @@ class KNNClassifier:
             curr_idx += split.shape[0]
         return preds
 
-    def predict_for_cv(self, X, fold_idxs):
+    def predict_for_cv(self, X):
         """
         params:
             * X - test objects
@@ -140,13 +140,13 @@ class KNNClassifier:
 
         preds = np.zeros(X.shape[0])
         classes = np.array(np.unique(self.y_train))
-        for j, idx in enumerate(self.neigh_idxs[fold_idxs][:, 1:self.k+1]):
-            counts = np.zeros(len(classes))
-            for c in classes:
-                if self.weights:
-                    weights = 1 / (self.distances[fold_idxs][j, 1:self.k+1] + self.eps)
-                    counts[c] = np.sum((self.y_train[idx] == c) * weights)
-                else:
-                    counts[c] = np.sum(self.y_train[idx] == c)
+        for j, idx in enumerate(self.neigh_idxs[:, :self.k]):
+            # counts = np.zeros(len(classes))
+            # for c in classes:
+            if self.weights:
+                weights = 1 / (self.distances[j, :self.k] + self.eps)
+                counts = np.bincount(self.y_train[idx],  weights)
+            else:
+                counts = np.bincount(self.y_train[idx])
             preds[j] = np.argmax(counts)
         return preds
