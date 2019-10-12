@@ -76,6 +76,10 @@ class KNNClassifier:
                 * only second array
         """
 
+        # split_size = X.shape[0] // self.test_block_size + \
+            # int(X.shape[0] % self.test_block_size != 0)
+
+        # for i, split in np.array_split(X, split_size):
         if self.strategy != 'my_own':
             self.distances, \
             self.neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
@@ -85,16 +89,16 @@ class KNNClassifier:
                 self.neigh_idxs = np.argsort(self.distances,
                                         axis=1)[:, :self.k]
                 if return_distance:
-                    self.distances = np.sort(self.distances,
-                                        axis=1)[:, :self.k]
+                    self.distances = self.distances[np.arange(self.distances.shape[0])[:, None],
+                                                    self.neigh_idxs]
 
             elif self.metric == 'cosine':
                 self.distances = cosine_distance(X, self.X_train)
                 self.neigh_idxs = np.argsort(self.distances,
                                         axis=1)[:, :self.k]
                 if return_distance:
-                    self.distances = np.sort(self.distances,
-                                        axis=1)[:, :self.k]
+                    self.distances = self.distances[np.arange(self.distances.shape[0])[:, None],
+                                                    self.neigh_idxs]
         if return_distance:
             return self.distances, self.neigh_idxs
         return self.neigh_idxs
