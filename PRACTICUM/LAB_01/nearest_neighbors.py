@@ -14,7 +14,8 @@ class KNNClassifier:
         """
         params:
             * k - amount of nearest neighbours(nn)
-            * strategy - nn searching algorithm. Possible values:
+
+             * strategy - nn searching algorithm. Possible values:
                 - 'my_own' - self-realization
                 - 'brute' - from sklearn.neighbors.NearestNeighbors(algorithm='brute')
                 - 'kd_tree' - from sklearn.neighbors.NearestNeighbors(algorithm='kd_tree')
@@ -76,13 +77,10 @@ class KNNClassifier:
                 * only second array
         """
 
-        # split_size = X.shape[0] // self.test_block_size + \
-            # int(X.shape[0] % self.test_block_size != 0)
 
-        # for i, split in np.array_split(X, split_size):
         if self.strategy != 'my_own':
             self.distances, \
-            self.neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
+                self.neigh_idxs = self.model.kneighbors(X, n_neighbors=self.k)
         else:
             if self.metric == 'euclidean':
                 self.distances = euclidean_distance(X, self.X_train)
@@ -143,10 +141,8 @@ class KNNClassifier:
         """
 
         preds = np.zeros(X.shape[0])
-        classes = np.array(np.unique(self.y_train))
+        self.y_train = self.y_train.astype(int)
         for j, idx in enumerate(self.neigh_idxs[:, :self.k]):
-            # counts = np.zeros(len(classes))
-            # for c in classes:
             if self.weights:
                 weights = 1 / (self.distances[j, :self.k] + self.eps)
                 counts = np.bincount(self.y_train[idx],  weights)
