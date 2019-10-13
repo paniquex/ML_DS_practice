@@ -1,8 +1,6 @@
 import numpy as np
-from distances import cosine_distance, euclidean_distance
 from nearest_neighbors import KNNClassifier
-
-
+import augmentation_tools
 
 
 def kfold(n, n_folds=3):
@@ -65,4 +63,84 @@ def knn_cross_val_score(X, y, k_list, score='accuracy', cv=None, **kwargs):
                 metric_per_k[k] = np.append(metric_per_k[k],
                                             accuracy(y_valid,
                                                    y[fold[1]]))
+    return metric_per_k
+
+
+def knn_cross_val_score_with_aug_for_train(X,
+                                 y,
+                                 new_objects_amount=10000,
+                                 type_of_transformation='rotation',
+                                 param_of_transformation=0,
+                                 score='accuracy',
+                                 k_list=None,
+                                 cv=None,
+                                 metric='cosine',
+                                 strategy='brute',
+                                 weights=True,
+                                 k_folds=3
+                                 ):
+    if cv is None:
+        cv = kfold(X.shape[0], k_folds)
+    knn = None
+    metric_per_k = {k: np.empty(0) for k in k_list}
+    for fold in cv:
+        knn = KNNClassifier(k_list[-1], metric=metric, strategy=strategy, weights=weights)
+        X_train_aug, y_train_aug = \
+            augmentation_tools.made_augmentation(X[fold[0]],
+                                                 y[fold[0]],
+                                                 new_objects_amount=new_objects_amount,
+                                                 type_of_transformation=type_of_transformation,
+                                                 param_of_transformation=param_of_transformation
+                                                 )
+        knn.fit(X_train_aug, y_train_aug)
+        knn.find_kneighbors(X[fold[1]], return_distance=True)
+        for k in k_list:
+            knn.k = k
+            y_valid = knn.predict_for_cv(X[fold[1]])
+            if score == "accuracy":
+                metric_per_k[k] = np.append(metric_per_k[k],
+                                            accuracy(y_valid.astype(int),
+                                                     y[fold[1]].astype(int)
+                                                     )
+                                            )
+    return metric_per_k
+
+
+def knn_cross_val_score_with_aug_for_test(X,
+                                 y,
+                                 new_objects_amount=10000,
+                                 type_of_transformation='rotation',
+                                 param_of_transformation=0,
+                                 score='accuracy',
+                                 k_list=None,
+                                 cv=None,
+                                 metric='cosine',
+                                 strategy='brute',
+                                 weights=True,
+                                 k_folds=3
+                                 ):
+    if cv is None:
+        cv = kfold(X.shape[0], k_folds)
+    knn = None
+    metric_per_k = {k: np.empty(0) for k in k_list}
+    for fold in cv:
+        knn = KNNClassifier(k_list[-1], metric=metric, strategy=strategy, weights=weights)
+        X_test_aug, y_test_aug = \
+            augmentation_tools.made_augmentation(X[fold[0]],
+                                                 y[fold[0]],
+                                                 new_objects_amount=new_objects_amount,
+                                                 type_of_transformation=type_of_transformation,
+                                                 param_of_transformation=param_of_transformation
+                                                 )
+        knn.fit(X_train_aug, y_train_aug)
+        knn.find_kneighbors(X[fold[1]], return_distance=True)
+        for k in k_list:
+            knn.k = k
+            y_valid = knn.predict_for_cv(X[fold[1]])
+            if score == "accuracy":
+                metric_per_k[k] = np.append(metric_per_k[k],
+                                            accuracy(y_valid.astype(int),
+                                                     y[fold[1]].astype(int)
+                                                     )
+                                            )
     return metric_per_k
