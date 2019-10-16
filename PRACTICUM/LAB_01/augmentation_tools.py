@@ -168,6 +168,7 @@ def test_time_augmentation(estimator,
                                             type_of_transformation=type_of_transformation_list,
                                             param_of_transformation=param_of_transformation_list
                                             )
+    print(X_test_augmented.shape)
     distances_tta = np.zeros((X_test.shape[0],
                               estimator.k * X_test_augmented.shape[0] // X_test.shape[0]))
     idxs_tta = np.zeros((X_test.shape[0],
@@ -176,14 +177,11 @@ def test_time_augmentation(estimator,
                                              X_test_augmented.shape[0] // X_test.shape[0])):
         distances_tta[:, i * estimator.k:(i+1) * estimator.k], \
             idxs_tta[:, i * estimator.k:(i+1) * estimator.k] = estimator.find_kneighbors(split, True)
-    # print(distances_tta[0, :10], idxs_tta[0, :10])
     neigh_idxs_relative = np.argsort(distances_tta,
                                      axis=1)[:, :estimator.k]
     estimator.neigh_idxs = idxs_tta[np.arange(idxs_tta.shape[0])[:, None],
                                    neigh_idxs_relative.astype(int)].astype(int)
     estimator.distances = distances_tta[np.arange(distances_tta.shape[0])[:, None],
                                          neigh_idxs_relative.astype(int)]
-    # print(estimator.distances[0, :10], estimator.neigh_idxs[0, :10])
-
     preds = estimator.predict_for_cv(X_test)
     return preds

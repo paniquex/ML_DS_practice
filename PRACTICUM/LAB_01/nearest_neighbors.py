@@ -1,6 +1,6 @@
 import numpy as np
-from sklearn.neighbors import NearestNeighbors
-from distances import cosine_distance, euclidean_distance
+from sklearn.neighbors import NearestNeighbors, DistanceMetric
+from distances import cosine_distance, euclidean_distance, manhattan_distance, chebyshev_distance, minkowski_distance
 
 
 class KNNClassifier:
@@ -9,7 +9,8 @@ class KNNClassifier:
                  strategy='my_own',
                  metric='euclidean',
                  weights=False,
-                 test_block_size=10000
+                 test_block_size=10000,
+                 p=2
                  ):
         """
         params:
@@ -27,6 +28,7 @@ class KNNClassifier:
                 - True - weighted KNN(with distance)
                 - False - simple KNN
             * test_block_size - size of test block
+            * p - only for minkowski metric (grade)
         """
 
         self.X_train = None
@@ -39,8 +41,9 @@ class KNNClassifier:
         self.metric = metric
         self.eps = 1e-5
         self.weights = weights
+        self.p = p
         if self.strategy == 'brute':
-            self.model = NearestNeighbors(n_neighbors=self.k, algorithm=self.strategy, metric=self.metric)
+            self.model = NearestNeighbors(n_neighbors=self.k, algorithm=self.strategy, metric=self.metric, p=self.p)
         elif self.strategy != 'my_own':
             self.model = NearestNeighbors(n_neighbors=self.k, algorithm=self.strategy)
         else:
@@ -84,19 +87,22 @@ class KNNClassifier:
         else:
             if self.metric == 'euclidean':
                 self.distances = euclidean_distance(X, self.X_train)
-                self.neigh_idxs = np.argsort(self.distances,
-                                        axis=1)[:, :self.k]
-                if return_distance:
-                    self.distances = self.distances[np.arange(self.distances.shape[0])[:, None],
-                                                    self.neigh_idxs]
-
             elif self.metric == 'cosine':
                 self.distances = cosine_distance(X, self.X_train)
-                self.neigh_idxs = np.argsort(self.distances,
-                                        axis=1)[:, :self.k]
-                if return_distance:
-                    self.distances = self.distances[np.arange(self.distances.shape[0])[:, None],
-                                                    self.neigh_idxs]
+            elif self.metric == 'manhattan':
+                dist = DistanceMetric.get_metric(self.metric)
+                self.distances = dist.pairwise(X, self.X_train)
+            elif self.metric == 'chebyshev':
+                dist = DistanceMetric.get_metric(self.metric)
+                self.distances = dist.pairwise(X, self.X_train)
+            elif self.metric == 'minkowski':
+                dist = DistanceMetric.get_metric(self.metric)
+                self.distances = dist.pairwise(X, self.X_train)
+            self.neigh_idxs = np.argsort(self.distances,
+                                         axis=1)[:, :self.k]
+            if return_distance:
+                self.distances = self.distances[np.arange(self.distances.shape[0])[:, None],
+                                                self.neigh_idxs]
         if return_distance:
             return self.distances, self.neigh_idxs
         return self.neigh_idxs
@@ -118,7 +124,8 @@ class KNNClassifier:
         curr_idx = 0
         classes = np.array(np.unique(self.y_train))
         for i, split in enumerate(np.array_split(X, split_size)):
-            self.distances, self.neigh_idxs = self.find_kneighbors(split, True)
+            self.distances, self.neigh_idxs = self.find_kneighbors(split,
+                                                                   True)
             for j, idx in enumerate(self.neigh_idxs):
                 counts = np.zeros(len(classes))
                 for c in classes:
