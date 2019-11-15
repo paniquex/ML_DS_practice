@@ -33,7 +33,8 @@ class BinaryLogistic(BaseSmoothOracle):
 
         l2_coef - коэффициент l2 регуляризации
         """
-        pass
+
+        self.l2_coef = l2_coef
 
     def func(self, X, y, w):
         """
@@ -45,7 +46,11 @@ class BinaryLogistic(BaseSmoothOracle):
 
         w - одномерный numpy array
         """
-        return super().func(w)
+
+        size = X.shape[0]
+        log_value = np.logaddexp(0, np.sum(-w[:, None].T * X, axis=1) * y).sum()
+        reg_value = self.l2_coef * np.linalg.norm(w) ** 2 / 2
+        return log_value / size + reg_value
 
     def grad(self, X, y, w):
         """
@@ -57,4 +62,11 @@ class BinaryLogistic(BaseSmoothOracle):
 
         w - одномерный numpy array
         """
-        return super().grad(w)
+
+        pass
+        # size = X.shape[0]
+        # log_grad = np.log(y[:, None]) + np.log(X) + np.log(np.sum(-w[:, None].T * X, axis=1) * y * scipy.special.expit(np.sum(-w[:, None].T * X, axis=1) * y))[:, None]
+        # print(log_grad)
+        # reg_grad = self.l2_coef * w
+        #
+        # return log_grad / size + reg_grad
