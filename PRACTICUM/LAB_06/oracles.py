@@ -1,5 +1,6 @@
 import numpy as np
 import scipy
+import scipy.special as spec
 
 
 class BaseSmoothOracle:
@@ -27,7 +28,7 @@ class BinaryLogistic(BaseSmoothOracle):
     Оракул должен поддерживать l2 регуляризацию.
     """
 
-    def __init__(self, l2_coef):
+    def __init__(self, l2_coef=0):
         """
         Задание параметров оракула.
 
@@ -48,7 +49,8 @@ class BinaryLogistic(BaseSmoothOracle):
         """
 
         size = X.shape[0]
-        log_value = np.logaddexp(0, np.sum(-w[:, None].T * X, axis=1) * y).sum()
+        tmp = X.dot(-w.T) * y
+        log_value = np.logaddexp(0, tmp).sum()
         reg_value = self.l2_coef * np.linalg.norm(w) ** 2 / 2
         return log_value / size + reg_value
 
@@ -63,10 +65,9 @@ class BinaryLogistic(BaseSmoothOracle):
         w - одномерный numpy array
         """
 
-        pass
-        # size = X.shape[0]
-        # log_grad = np.log(y[:, None]) + np.log(X) + np.log(np.sum(-w[:, None].T * X, axis=1) * y * scipy.special.expit(np.sum(-w[:, None].T * X, axis=1) * y))[:, None]
-        # print(log_grad)
-        # reg_grad = self.l2_coef * w
-        #
-        # return log_grad / size + reg_grad
+        size = X.shape[0]
+        log_grad_1 = -y[:, None] * X
+        log_grad_2 = spec.expit((-w[:, None].T * X * y[:, None]).sum(axis=1))
+        log_grad = log_grad_1.T.dot(log_grad_2)
+        reg_grad = self.l2_coef * w
+        return log_grad / size + reg_grad
