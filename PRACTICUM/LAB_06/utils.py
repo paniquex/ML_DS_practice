@@ -1,3 +1,5 @@
+import numpy as np
+
 def grad_finite_diff(function, w, eps=1e-8):
     """
     Возвращает численное значение градиента, подсчитанное по следующией формуле:
@@ -6,4 +8,6 @@ def grad_finite_diff(function, w, eps=1e-8):
         e_i = (0, 0, ..., 0, 1, 0, ..., 0)
                           >> i <<
     """
-    pass
+
+    result = (function(w + eps) - function(w)) / eps
+    return result
