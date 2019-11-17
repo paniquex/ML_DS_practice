@@ -66,8 +66,7 @@ class BinaryLogistic(BaseSmoothOracle):
         """
 
         size = X.shape[0]
-        log_grad_1 = -y[:, None] * X
-        log_grad_2 = spec.expit((-w[:, None].T * X * y[:, None]).sum(axis=1))
-        log_grad = log_grad_1.T.dot(log_grad_2)
+        log_grad_1 = spec.expit(-X.dot(w) * y)
+        log_grad = X.T.dot(-y * log_grad_1)
         reg_grad = self.l2_coef * w
         return log_grad / size + reg_grad
