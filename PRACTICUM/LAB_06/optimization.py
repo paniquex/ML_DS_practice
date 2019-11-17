@@ -3,6 +3,7 @@ import numpy as np
 import scipy
 import scipy.special as spec
 import time
+from sklearn.model_selection import train_test_split
 
 
 class GDClassifier:
@@ -14,7 +15,8 @@ class GDClassifier:
     def __init__(self, loss_function='binary_logistic',
                  step_alpha=1,
                  step_beta=0,
-                 tolerance=1e-5, max_iter=1000, **kwargs):
+                 tolerance=1e-5, max_iter=1000,
+                 experiment=False, **kwargs):
         """
         loss_function - строка, отвечающая за функцию потерь классификатора.
         Может принимать значения:
@@ -43,10 +45,11 @@ class GDClassifier:
         self.tol = tolerance
         self.max_iter = max_iter
         self.w = None
-        self.X = None
-        self.y = None
+        X = None
+        y = None
         self.trace = None
         self.history = None
+        self.experiment = experiment
 
     def fit(self, X, y, w_0=None, trace=False):
         """
@@ -68,42 +71,57 @@ class GDClassifier:
         (0 для самой первой точки)
         """
 
-        self.X = X
-        self.y = y
         if w_0 is None:
-            self.w = np.random.uniform(0, 1, X.shape[1])  # need to make it with random
+            self.w = np.random.uniform(0, 1, X.shape[1])
         else:
             self.w = w_0
         self.trace = trace
         if self.trace:
-            self.history = {'time': [], 'func': []}
+            self.history = {'time': [], 'func': [], 'step_alpha': self.step_alpha,
+                            'step_beta': self.step_beta, 'w_0': w_0,
+                            'classifier_type': 'GD'}
+        if self.experiment:
+            X_train, X_test, y_train, y_test = train_test_split(X,
+                                                                y,
+                                                                train_size=0.7,
+                                                                random_state=42)
+            self.history['accuracy'] = []
+        else:
+            X_train = X
+            y_train = y
 
         # Algorithm
-        iteration = 0
+        iteration = 1
         start_time = time.time()
-        func_val_curr = self.get_objective(self.X, self.y)
-        grad_val = self.get_gradient(self.X, self.y)
-        self.w = (self.step_beta + 1) * self.w - self.step_alpha * grad_val
+        func_val_curr = self.get_objective(X_train, y_train)
+        grad_val = self.get_gradient(X_train, y_train)
+        self.w = self.w - self.step_alpha / (iteration ** self.step_beta) * grad_val
         if self.trace:
+            if self.experiment:
+                self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
             self.history['time'].append(time.time() - start_time)
             self.history['func'].append(func_val_curr)
         iteration += 1
         func_val_prev = func_val_curr
-        func_val_curr = self.get_objective(self.X, self.y)
+        func_val_curr = self.get_objective(X_train, y_train)
 
-        while (iteration < self.max_iter) and \
+        while (iteration <= self.max_iter) and \
                 (np.abs(func_val_curr - func_val_prev) >= self.tol):
             func_val_prev = func_val_curr
-            grad_val = self.get_gradient(self.X, self.y)
-            self.w = (self.step_beta + 1) * self.w - self.step_alpha * grad_val
+            grad_val = self.get_gradient(X_train, y_train)
+            self.w = self.w - self.step_alpha / (iteration ** self.step_beta) * grad_val
             if self.trace:
+                if self.experiment:
+                    self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
                 self.history['time'].append(time.time() - start_time)
                 self.history['func'].append(func_val_curr)
                 start_time = time.time()
             iteration += 1
-            func_val_curr = self.get_objective(self.X, self.y)
+            func_val_curr = self.get_objective(X_train, y_train)
 
         if self.trace:
+            if self.experiment:
+                self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
             self.history['time'].append(time.time() - start_time)
             self.history['func'].append(func_val_curr)
             return self.history
@@ -132,7 +150,7 @@ class GDClassifier:
         """
 
         proba = spec.expit(X.dot(self.w))
-        return np.array([proba, 1 - proba]).T
+        return np.array([1-proba, proba]).T
 
     def get_objective(self, X, y):
         """
@@ -172,8 +190,8 @@ class SGDClassifier(GDClassifier):
     оракула, соответствующего спецификации оракулов из модуля oracles.py
     """
 
-    def __init__(self, loss_function, batch_size, step_alpha=1, step_beta=0,
-                 tolerance=1e-5, max_iter=1000, random_seed=153, **kwargs):
+    def __init__(self, loss_function='binary_logistic', batch_size=100, step_alpha=1, step_beta=0,
+                 tolerance=1e-5, max_iter=1000, random_seed=153, experiment=False, **kwargs):
         """
         loss_function - строка, отвечающая за функцию потерь классификатора.
         Может принимать значения:
@@ -210,10 +228,11 @@ class SGDClassifier(GDClassifier):
         self.seed = random_seed
         self.batch_size = batch_size
         self.w = None
-        self.X = None
-        self.y = None
+        X = None
+        y = None
         self.trace = None
         self.history = None
+        self.experiment = experiment
 
     def fit(self, X, y, w_0=None, trace=False, log_freq=1):
         """
@@ -244,59 +263,84 @@ class SGDClassifier(GDClassifier):
         """
 
         np.random.seed(self.seed)
-        self.X = X
-        self.y = y
         if w_0 is None:
             self.w = np.random.uniform(0, 1, X.shape[1])  # need to make it with random
         else:
             self.w = w_0
         self.trace = trace
         if self.trace:
-            self.history = {'epoch_num': [], 'time': [], 'func': [], 'weights_diff': [0]}
+            self.history = {'epoch_num': [], 'time': [], 'func': [],
+                            'weights_diff': [0], 'step_alpha': self.step_alpha,
+                            'step_beta': self.step_beta, 'w_0': w_0,
+                            'batch_size': self.batch_size,
+                            'classifier_type': 'SGD'}
+        if self.experiment:
+            X_train, X_test, y_train, y_test = train_test_split(X,
+                                                                y,
+                                                                train_size=0.7,
+                                                                random_state=42)
+            self.history['accuracy'] = []
+        else:
+            X_train = X
+            y_train = y
 
         # Algorithm
-        iteration = 0
-        relative_epoch_num = 0
+        iteration = 1
+        relative_epoch_num = 1
         start_time = time.time()
-        full_indices = np.random.choice(self.X.shape[0] * self.max_iter)
+        full_indices = np.random.choice(X_train.shape[0], self.batch_size * self.max_iter)
 
-        indices = full_indices[iteration * self.batch_size: (iteration + 1) * self.batch_size]
-        X_batch, y_batch = self.X[indices], self.y[indices]
+        indices = full_indices[(iteration - 1) * self.batch_size: iteration * self.batch_size]
+        X_batch, y_batch = X_train[indices], y_train[indices]
         func_val_curr = self.get_objective(X_batch, y_batch)
         grad_val = self.get_gradient(X_batch, y_batch)
-        self.w = (self.step_beta + 1) * self.w - self.step_alpha * grad_val
+        self.w = self.w - self.step_alpha / (iteration ** self.step_beta) * grad_val
         if self.trace:
+            if self.experiment:
+                self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
             self.history['epoch_num'].append(relative_epoch_num)
             self.history['time'].append(time.time() - start_time)
             self.history['func'].append(func_val_curr)
             self.history['weights_diff'].append(0)
         iteration += 1
         func_val_prev = func_val_curr
-        relative_epoch_num_prev = 0
+        relative_epoch_num_prev = 1
 
-        indices = full_indices[iteration * self.batch_size:
-                               (iteration + 1) * self.batch_size]
-        X_batch, y_batch = self.X[indices], self.y[indices]
+        indices = full_indices[(iteration - 1) * self.batch_size:
+                               iteration * self.batch_size]
+        X_batch, y_batch = X[indices], y[indices]
         func_val_curr = self.get_objective(X_batch, y_batch)
-        while (iteration < self.max_iter) and \
+        while (iteration <= self.max_iter) and \
                 (np.abs(func_val_curr - func_val_prev) >= self.tol):
             start_time = time.time()
             grad_val = self.get_gradient(X_batch, y_batch)
-            self.w = (1 + self.step_beta) * self.w - self.step_alpha * grad_val
-            if log_freq < ((relative_epoch_num -
-                            relative_epoch_num_prev) / self.X.shape[0]):
+            self.w = self.w - self.step_alpha / (iteration ** self.step_beta) * grad_val
+            if log_freq < (relative_epoch_num -
+                            relative_epoch_num_prev):
                 relative_epoch_num_prev = relative_epoch_num
                 func_val_prev = func_val_curr
                 func_val_curr = self.get_objective(X_batch, y_batch)
                 if self.trace:
+                    if self.experiment:
+                        self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
                     self.history['epoch_num'].append(relative_epoch_num)
                     self.history['time'].append(time.time() - start_time)
                     self.history['func'].append(func_val_curr)
                     prev_weights = self.history['weights_diff'][-1]
                     weights_norm = np.linalg.norm(prev_weights - self.w)
                     self.history['weights_diff'].append(weights_norm)
+            relative_epoch_num += self.batch_size / X.shape[0]
             iteration += 1
-            indices = full_indices[iteration * self.batch_size: (iteration + 1) * self.batch_size]
-            X_batch, y_batch = self.X[indices], self.y[indices]
+            indices = full_indices[(iteration - 1) * self.batch_size: iteration * self.batch_size]
+            X_batch, y_batch = X[indices], y[indices]
+        if self.trace:
+            if self.experiment:
+                self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
+            self.history['epoch_num'].append(relative_epoch_num)
+            self.history['time'].append(time.time() - start_time)
+            self.history['func'].append(func_val_curr)
+            prev_weights = self.history['weights_diff'][-1]
+            weights_norm = np.linalg.norm(prev_weights - self.w)
+            self.history['weights_diff'].append(weights_norm)
         if self.trace:
             return self.history
