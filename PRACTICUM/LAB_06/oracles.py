@@ -28,7 +28,7 @@ class BinaryLogistic(BaseSmoothOracle):
     Оракул должен поддерживать l2 регуляризацию.
     """
 
-    def __init__(self, l2_coef=0):
+    def __init__(self, l2_coef=0, use_bias_in_reg=False):
         """
         Задание параметров оракула.
 
@@ -36,6 +36,7 @@ class BinaryLogistic(BaseSmoothOracle):
         """
 
         self.l2_coef = l2_coef
+        self.use_bias_in_reg = use_bias_in_reg
 
     def func(self, X, y, w):
         """
@@ -51,7 +52,10 @@ class BinaryLogistic(BaseSmoothOracle):
         size = X.shape[0]
         tmp = X.dot(-w.T) * y
         log_value = np.logaddexp(0, tmp).sum()
-        reg_value = self.l2_coef * np.linalg.norm(w) ** 2 / 2
+        if self.use_bias_in_reg:
+            reg_value = self.l2_coef * np.linalg.norm(w) ** 2 / 2
+        else:
+            reg_value = self.l2_coef * np.linalg.norm(w[1:]) ** 2 / 2
         return log_value / size + reg_value
 
     def grad(self, X, y, w):
@@ -67,6 +71,13 @@ class BinaryLogistic(BaseSmoothOracle):
 
         size = X.shape[0]
         log_grad_1 = spec.expit(-X.dot(w) * y)
-        log_grad = X.T.dot(-y * log_grad_1)
-        reg_grad = self.l2_coef * w
-        return log_grad / size + reg_grad
+        if self.use_bias_in_reg:
+            log_grad = X.T.dot(-y * log_grad_1)
+            reg_grad = self.l2_coef * w
+            result = log_grad / size + reg_grad
+        else:
+            log_grad = X.T.dot(-y * log_grad_1)
+            reg_grad = self.l2_coef * w
+            result = log_grad / size + reg_grad
+            result[0] = log_grad[0] / size  # не учитываем reg_grad для смещения
+        return result

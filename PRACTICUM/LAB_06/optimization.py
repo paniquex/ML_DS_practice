@@ -16,7 +16,9 @@ class GDClassifier:
                  step_alpha=1,
                  step_beta=0,
                  tolerance=1e-5, max_iter=1000,
-                 experiment=False, **kwargs):
+                 experiment=False,
+                 use_bias_in_reg=False,
+                 **kwargs):
         """
         loss_function - строка, отвечающая за функцию потерь классификатора.
         Может принимать значения:
@@ -32,14 +34,18 @@ class GDClassifier:
 
         max_iter - максимальное число итераций
 
+        experiment - нужно ли делить выборку на тренировочную и валидационную
+
+        use_bias_in_reg - нужно ли использовать смещение (w[0]) в регуляризации.
+
         **kwargs - аргументы, необходимые для инициализации
         """
 
         if loss_function == 'binary_logistic':
             if 'l2_coef' in kwargs.keys():
-                self.oracle = oracles.BinaryLogistic(l2_coef=kwargs['l2_coef'])
+                self.oracle = oracles.BinaryLogistic(l2_coef=kwargs['l2_coef'], use_bias_in_reg=use_bias_in_reg)
             else:
-                self.oracle = oracles.BinaryLogistic()
+                self.oracle = oracles.BinaryLogistic(use_bias_in_reg=use_bias_in_reg)
         self.step_alpha = step_alpha
         self.step_beta = step_beta
         self.tol = tolerance
@@ -187,7 +193,7 @@ class SGDClassifier(GDClassifier):
     """
 
     def __init__(self, loss_function='binary_logistic', batch_size=100, step_alpha=1, step_beta=0,
-                 tolerance=1e-5, max_iter=1000, random_seed=153, experiment=False, **kwargs):
+                 tolerance=1e-5, max_iter=1000, random_seed=153, experiment=False, use_bias_in_reg=False, **kwargs):
         """
         loss_function - строка, отвечающая за функцию потерь классификатора.
         Может принимать значения:
@@ -209,14 +215,18 @@ class SGDClassifier(GDClassifier):
         random_seed - в начале метода fit необходимо вызвать np.random.seed(random_seed).
         Этот параметр нужен для воспроизводимости результатов на разных машинах.
 
+        experiment - нужно ли делить выборку на тренировочную и валидационную
+
+        use_bias_in_reg - нужно ли использовать смещение (w[0]) в регуляризации.
+
         **kwargs - аргументы, необходимые для инициализации
         """
 
         if loss_function == 'binary_logistic':
             if 'l2_coef' in kwargs.keys():
-                self.oracle = oracles.BinaryLogistic(l2_coef=kwargs['l2_coef'])
+                self.oracle = oracles.BinaryLogistic(l2_coef=kwargs['l2_coef'], use_bias_in_reg=use_bias_in_reg)
             else:
-                self.oracle = oracles.BinaryLogistic()
+                self.oracle = oracles.BinaryLogistic(use_bias_in_reg=use_bias_in_reg)
         self.step_alpha = step_alpha
         self.step_beta = step_beta
         self.tol = tolerance
