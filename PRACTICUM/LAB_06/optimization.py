@@ -285,7 +285,7 @@ class SGDClassifier(GDClassifier):
             X_train, X_test, y_train, y_test = train_test_split(X,
                                                                 y,
                                                                 train_size=0.7,
-                                                                random_state=11)
+                                                                random_state=13)
             self.history['accuracy'] = []
         else:
             X_train = X
@@ -297,7 +297,8 @@ class SGDClassifier(GDClassifier):
         full_indices = np.random.choice(X_train.shape[0], self.batch_size * self.max_iter)
 
         indices = full_indices[(iteration - 1) * self.batch_size: iteration * self.batch_size]
-        X_batch, y_batch = X_train[indices], y_train[indices]
+        X_batch = X_train[indices]
+        y_batch = y_train[indices]
         func_val_curr = self.get_objective(X_batch, y_batch)
         if self.trace:
             if self.experiment:
@@ -311,7 +312,8 @@ class SGDClassifier(GDClassifier):
         while iteration <= self.max_iter:
             indices = full_indices[(iteration - 1) * self.batch_size:
                                    iteration * self.batch_size]
-            X_batch, y_batch = X[indices], y[indices]
+            X_batch = X_train[indices]
+            y_batch = y_train[indices]
             func_val_prev = func_val_curr
             start_time = time.time()
             grad_val = self.get_gradient(X_batch, y_batch)
