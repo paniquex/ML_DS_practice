@@ -76,16 +76,17 @@ class GDClassifier:
         else:
             self.w = w_0
         self.trace = trace
+        self.history = {}
         if self.trace:
-            self.history = {'time': [], 'func': [], 'step_alpha': self.step_alpha,
+            self.history = {'time': [0], 'func': [0], 'step_alpha': self.step_alpha,
                             'step_beta': self.step_beta, 'w_0': w_0,
                             'classifier_type': 'GD'}
         if self.experiment:
             X_train, X_test, y_train, y_test = train_test_split(X,
                                                                 y,
                                                                 train_size=0.7,
-                                                                random_state=42)
-            self.history['accuracy'] = []
+                                                                random_state=13)
+            self.history['accuracy'] = [0]
         else:
             X_train = X
             y_train = y
@@ -102,28 +103,23 @@ class GDClassifier:
             self.history['time'].append(time.time() - start_time)
             self.history['func'].append(func_val_curr)
         iteration += 1
-        func_val_prev = func_val_curr
-        func_val_curr = self.get_objective(X_train, y_train)
 
-        while (iteration <= self.max_iter) and \
-                (np.abs(func_val_curr - func_val_prev) >= self.tol):
+        while iteration <= self.max_iter:
             func_val_prev = func_val_curr
             grad_val = self.get_gradient(X_train, y_train)
             self.w = self.w - self.step_alpha / (iteration ** self.step_beta) * grad_val
+            func_val_curr = self.get_objective(X_train, y_train)
             if self.trace:
                 if self.experiment:
                     self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
                 self.history['time'].append(time.time() - start_time)
                 self.history['func'].append(func_val_curr)
                 start_time = time.time()
+            if np.abs(func_val_curr - func_val_prev) < self.tol:
+                break
             iteration += 1
-            func_val_curr = self.get_objective(X_train, y_train)
 
         if self.trace:
-            if self.experiment:
-                self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
-            self.history['time'].append(time.time() - start_time)
-            self.history['func'].append(func_val_curr)
             return self.history
 
     def predict(self, X):
@@ -150,7 +146,7 @@ class GDClassifier:
         """
 
         proba = spec.expit(X.dot(self.w))
-        return np.array([1-proba, proba]).T
+        return np.array([1-proba, proba]).T # -1 class, 1 class probabilities
 
     def get_objective(self, X, y):
         """
@@ -268,9 +264,10 @@ class SGDClassifier(GDClassifier):
         else:
             self.w = w_0
         self.trace = trace
+        self.history = {}
         if self.trace:
             self.history = {'epoch_num': [], 'time': [], 'func': [],
-                            'weights_diff': [0], 'step_alpha': self.step_alpha,
+                            'weights_diff': [], 'step_alpha': self.step_alpha,
                             'step_beta': self.step_beta, 'w_0': w_0,
                             'batch_size': self.batch_size,
                             'classifier_type': 'SGD'}
@@ -278,12 +275,11 @@ class SGDClassifier(GDClassifier):
             X_train, X_test, y_train, y_test = train_test_split(X,
                                                                 y,
                                                                 train_size=0.7,
-                                                                random_state=42)
+                                                                random_state=11)
             self.history['accuracy'] = []
         else:
             X_train = X
             y_train = y
-
         # Algorithm
         iteration = 1
         relative_epoch_num = 1
@@ -293,8 +289,6 @@ class SGDClassifier(GDClassifier):
         indices = full_indices[(iteration - 1) * self.batch_size: iteration * self.batch_size]
         X_batch, y_batch = X_train[indices], y_train[indices]
         func_val_curr = self.get_objective(X_batch, y_batch)
-        grad_val = self.get_gradient(X_batch, y_batch)
-        self.w = self.w - self.step_alpha / (iteration ** self.step_beta) * grad_val
         if self.trace:
             if self.experiment:
                 self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
@@ -303,23 +297,20 @@ class SGDClassifier(GDClassifier):
             self.history['func'].append(func_val_curr)
             self.history['weights_diff'].append(0)
         iteration += 1
-        func_val_prev = func_val_curr
         relative_epoch_num_prev = 1
-
-        indices = full_indices[(iteration - 1) * self.batch_size:
-                               iteration * self.batch_size]
-        X_batch, y_batch = X[indices], y[indices]
-        func_val_curr = self.get_objective(X_batch, y_batch)
-        while (iteration <= self.max_iter) and \
-                (np.abs(func_val_curr - func_val_prev) >= self.tol):
+        while iteration <= self.max_iter:
+            indices = full_indices[(iteration - 1) * self.batch_size:
+                                   iteration * self.batch_size]
+            X_batch, y_batch = X[indices], y[indices]
+            func_val_prev = func_val_curr
             start_time = time.time()
             grad_val = self.get_gradient(X_batch, y_batch)
             self.w = self.w - self.step_alpha / (iteration ** self.step_beta) * grad_val
+            func_val_curr = self.get_objective(X_batch, y_batch)
+
             if log_freq < (relative_epoch_num -
-                            relative_epoch_num_prev):
+                           relative_epoch_num_prev):
                 relative_epoch_num_prev = relative_epoch_num
-                func_val_prev = func_val_curr
-                func_val_curr = self.get_objective(X_batch, y_batch)
                 if self.trace:
                     if self.experiment:
                         self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
@@ -329,18 +320,9 @@ class SGDClassifier(GDClassifier):
                     prev_weights = self.history['weights_diff'][-1]
                     weights_norm = np.linalg.norm(prev_weights - self.w)
                     self.history['weights_diff'].append(weights_norm)
+                if np.abs(func_val_curr - func_val_prev) < self.tol:
+                    break
             relative_epoch_num += self.batch_size / X.shape[0]
             iteration += 1
-            indices = full_indices[(iteration - 1) * self.batch_size: iteration * self.batch_size]
-            X_batch, y_batch = X[indices], y[indices]
-        if self.trace:
-            if self.experiment:
-                self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
-            self.history['epoch_num'].append(relative_epoch_num)
-            self.history['time'].append(time.time() - start_time)
-            self.history['func'].append(func_val_curr)
-            prev_weights = self.history['weights_diff'][-1]
-            weights_norm = np.linalg.norm(prev_weights - self.w)
-            self.history['weights_diff'].append(weights_norm)
         if self.trace:
             return self.history
