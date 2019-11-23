@@ -18,6 +18,7 @@ class GDClassifier:
                  tolerance=1e-5, max_iter=1000,
                  experiment=False,
                  use_bias_in_reg=False,
+                 save_best_weights=False,
                  **kwargs):
         """
         loss_function - строка, отвечающая за функцию потерь классификатора.
@@ -38,6 +39,8 @@ class GDClassifier:
 
         use_bias_in_reg - нужно ли использовать смещение (w[0]) в регуляризации.
 
+        save_best_weights - сохранять ли веса при достижении наилучшего значения accuracy
+
         **kwargs - аргументы, необходимые для инициализации
         """
 
@@ -56,6 +59,7 @@ class GDClassifier:
         self.trace = None
         self.history = None
         self.experiment = experiment
+        self.save_best_weights = save_best_weights
 
     def fit(self, X, y, w_0=None, trace=False):
         """
@@ -106,7 +110,10 @@ class GDClassifier:
         if self.trace:
             if self.experiment:
                 accuracy_on_epoch = (self.predict(X_test) == y_test).sum() / len(y_test)
-                if accuracy_on_epoch > np.max(self.history['accuracy']):
+                if self.save_best_weights:
+                    if accuracy_on_epoch > np.max(self.history['accuracy']):
+                        self.history['best_weights'] = self.w
+                else:
                     self.history['best_weights'] = self.w
                 self.history['accuracy'].append(accuracy_on_epoch)
             self.history['time'].append(time.time() - start_time)
@@ -121,7 +128,10 @@ class GDClassifier:
             if self.trace:
                 if self.experiment:
                     accuracy_on_epoch = (self.predict(X_test) == y_test).sum() / len(y_test)
-                    if accuracy_on_epoch > np.max(self.history['accuracy']):
+                    if self.save_best_weights:
+                        if accuracy_on_epoch > np.max(self.history['accuracy']):
+                            self.history['best_weights'] = self.w
+                    else:
                         self.history['best_weights'] = self.w
                     self.history['accuracy'].append(accuracy_on_epoch)
                 self.history['time'].append(time.time() - start_time)
@@ -199,7 +209,8 @@ class SGDClassifier(GDClassifier):
     """
 
     def __init__(self, loss_function='binary_logistic', batch_size=100, step_alpha=1, step_beta=0,
-                 tolerance=1e-5, max_iter=1000, random_seed=153, experiment=False, use_bias_in_reg=False, **kwargs):
+                 tolerance=1e-5, max_iter=1000, random_seed=153, experiment=False, use_bias_in_reg=False,
+                 save_best_weights=False, **kwargs):
         """
         loss_function - строка, отвечающая за функцию потерь классификатора.
         Может принимать значения:
@@ -225,6 +236,8 @@ class SGDClassifier(GDClassifier):
 
         use_bias_in_reg - нужно ли использовать смещение (w[0]) в регуляризации.
 
+        save_best_weights - сохранять ли веса при достижении наилучшего значения accuracy
+
         **kwargs - аргументы, необходимые для инициализации
         """
 
@@ -245,6 +258,7 @@ class SGDClassifier(GDClassifier):
         self.trace = None
         self.history = None
         self.experiment = experiment
+        self.save_best_weights = save_best_weights
 
     def fit(self, X, y, w_0=None, trace=False, log_freq=1):
         """
@@ -282,8 +296,8 @@ class SGDClassifier(GDClassifier):
         self.trace = trace
         self.history = {}
         if self.trace:
-            self.history = {'epoch_num': [], 'time': [], 'func': [],
-                            'weights_diff': [], 'step_alpha': self.step_alpha,
+            self.history = {'epoch_num': [0], 'time': [0], 'func': [0],
+                            'weights_diff': [0], 'step_alpha': self.step_alpha,
                             'step_beta': self.step_beta, 'w_0': w_0,
                             'batch_size': self.batch_size,
                             'classifier_type': 'SGD'}
@@ -309,7 +323,10 @@ class SGDClassifier(GDClassifier):
         if self.trace:
             if self.experiment:
                 accuracy_on_epoch = (self.predict(X_test) == y_test).sum() / len(y_test)
-                if accuracy_on_epoch > np.max(self.history['accuracy']):
+                if self.save_best_weights:
+                    if accuracy_on_epoch > np.max(self.history['accuracy']):
+                        self.history['best_weights'] = self.w
+                else:
                     self.history['best_weights'] = self.w
                 self.history['accuracy'].append(accuracy_on_epoch)
             self.history['epoch_num'].append(relative_epoch_num)
@@ -335,7 +352,10 @@ class SGDClassifier(GDClassifier):
                 if self.trace:
                     if self.experiment:
                         accuracy_on_epoch = (self.predict(X_test) == y_test).sum() / len(y_test)
-                        if accuracy_on_epoch > np.max(self.history['accuracy']):
+                        if self.save_best_weights:
+                            if accuracy_on_epoch > np.max(self.history['accuracy']):
+                                self.history['best_weights'] = self.w
+                        else:
                             self.history['best_weights'] = self.w
                         self.history['accuracy'].append(accuracy_on_epoch)
                     self.history['epoch_num'].append(relative_epoch_num)
