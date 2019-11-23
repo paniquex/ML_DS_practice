@@ -1,0 +1,89 @@
+\documentclass[a4paper, 11pt]{article}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка		% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+\usepackage{indentfirst} % Красная строка в начале абзацев
+
+\usepackage{setspace} % Междустрочный интервал
+\singlespacing
+
+\usepackage[left=20mm, top=10mm, right=10mm, bottom=25mm, nohead, footskip=7mm]{geometry} % поля документа
+
+%% Номера формул
+%\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+    {\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} %AMS
+
+\usepackage{hyperref}  % Гиперссылки
+\usepackage[usernames,dvipsnames,svgnames,table,rgb]{xcolor}
+\usepackage{enumitem} %Для нумерации списков
+\usepackage{multicol} % Несколько колонок
+\usepackage{multirow} % Несколько строк
+%\usepackage{caption} % отступы между названием и объектом
+%\captionsetup[images]{skip=2ex}
+
+\usepackage{dsfont}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\hypersetup{
+    unicode=true,
+    pdftitle={cheat_sheet}, % Заголовок
+    pdfauthor={Кузьмин Никита, ММП 317},
+    pdfcreator={Кузьмин Никита, ММП 317},
+    colorlinks=false, % false - ссылки в рамках; true - цветные ссылки
+    linkcolor=red,   % внутренние ссылки
+    citecolor=green, % на библиографию
+    filecolor=magenta, % на файлы
+    urlcolor=blue % на URL
+}
+
+\usepackage{fancyhdr}% загрузим пакет
+%\pagestyle{fancy}% применим колонтитул
+
+\begin{document}
+    \hfill Кузьмин Никита, ММП, 317.
+    
+    \center \Large Отчет по практическому заданию №2 "\textbf{Применение линейных моделей для определения токсичности комментария}". 
+    
+    Логистическая регрессия и градиентный спуск.
+    \tableofcontents
+    
+    \newpage
+    \section{Введение}
+    В этом документе представлен отчет о проделанных экспериментах по практическому заданию №2, анализ результатов. 
+    
+    Краткое описание задания: необходимо реализовать алгоритмы $k$ ближайших соседей и кросс-валидации, провести эксперименты с датасетом изображений цифр \textbf{MNIST}.
+\end{document}
