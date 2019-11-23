@@ -292,7 +292,7 @@ class SGDClassifier(GDClassifier):
                                                                 y,
                                                                 train_size=0.7,
                                                                 random_state=13)
-            self.history['accuracy'] = []
+            self.history['accuracy'] = [0]
         else:
             X_train = X
             y_train = y
