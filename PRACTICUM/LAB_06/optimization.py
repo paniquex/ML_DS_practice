@@ -105,7 +105,10 @@ class GDClassifier:
         self.w = self.w - self.step_alpha / (iteration ** self.step_beta) * grad_val
         if self.trace:
             if self.experiment:
-                self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
+                accuracy_on_epoch = (self.predict(X_test) == y_test).sum() / len(y_test)
+                if accuracy_on_epoch > np.max(self.history['accuracy']):
+                    self.history['best_weights'] = self.w
+                self.history['accuracy'].append(accuracy_on_epoch)
             self.history['time'].append(time.time() - start_time)
             self.history['func'].append(func_val_curr)
         iteration += 1
@@ -117,7 +120,10 @@ class GDClassifier:
             func_val_curr = self.get_objective(X_train, y_train)
             if self.trace:
                 if self.experiment:
-                    self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
+                    accuracy_on_epoch = (self.predict(X_test) == y_test).sum() / len(y_test)
+                    if accuracy_on_epoch > np.max(self.history['accuracy']):
+                        self.history['best_weights'] = self.w
+                    self.history['accuracy'].append(accuracy_on_epoch)
                 self.history['time'].append(time.time() - start_time)
                 self.history['func'].append(func_val_curr)
                 start_time = time.time()
@@ -302,7 +308,10 @@ class SGDClassifier(GDClassifier):
         func_val_curr = self.get_objective(X_batch, y_batch)
         if self.trace:
             if self.experiment:
-                self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
+                accuracy_on_epoch = (self.predict(X_test) == y_test).sum() / len(y_test)
+                if accuracy_on_epoch > np.max(self.history['accuracy']):
+                    self.history['best_weights'] = self.w
+                self.history['accuracy'].append(accuracy_on_epoch)
             self.history['epoch_num'].append(relative_epoch_num)
             self.history['time'].append(time.time() - start_time)
             self.history['func'].append(func_val_curr)
@@ -325,7 +334,10 @@ class SGDClassifier(GDClassifier):
                 relative_epoch_num_prev = relative_epoch_num
                 if self.trace:
                     if self.experiment:
-                        self.history['accuracy'].append((self.predict(X_test) == y_test).sum() / len(y_test))
+                        accuracy_on_epoch = (self.predict(X_test) == y_test).sum() / len(y_test)
+                        if accuracy_on_epoch > np.max(self.history['accuracy']):
+                            self.history['best_weights'] = self.w
+                        self.history['accuracy'].append(accuracy_on_epoch)
                     self.history['epoch_num'].append(relative_epoch_num)
                     self.history['time'].append(time.time() - start_time)
                     self.history['func'].append(func_val_curr)
