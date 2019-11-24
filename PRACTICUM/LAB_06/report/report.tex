@@ -60,7 +60,7 @@
 
 \hypersetup{
     unicode=true,
-    pdftitle={cheat_sheet}, % Заголовок
+    pdftitle={Практическое задание №2}, % Заголовок
     pdfauthor={Кузьмин Никита, ММП 317},
     pdfcreator={Кузьмин Никита, ММП 317},
     colorlinks=false, % false - ссылки в рамках; true - цветные ссылки
@@ -82,6 +82,7 @@
 \sectionfont{\LARGE}
 \subsectionfont{\LARGE}
 \subsubsectionfont{\Large}
+\usepackage{float}
 
 
 \usepackage{fancyhdr}% загрузим пакет
@@ -116,22 +117,217 @@
         \subsection{Исследование поведения градиентного спуска}
             Обновления весов модели при использовании градиетного спуска происходит по следующей формуле:
             \begin{equation}\label{exp1:weight_upd}
-            w_t = w_{t-1} - \frac{\alpha}{t^\beta} \times \frac{1}{N} \times \sum_{i=1}^{N}\nabla_{w}\L(x_i, y_i|w_{t-1}),
+            w_t = w_{t-1} - \frac{\alpha}{t^\beta} \times \frac{1}{N} \times \sum_{i=1}^{N}\nabla_{w}\mathcal{L}(x_i, y_i|w_{t-1}),
             \end{equation}
-            где $t$ - номер итерации, $\beta$ - \textbf{step\_beta}, $\nabla_{w}\L(x_i, y_i|w_{t-1})$ - градиент функции потерь.
+            где $t$ - номер итерации, $\beta$ - \textbf{step\_beta}, $\nabla_{w}\mathcal{L}(x_i, y_i|w_{t-1})$ - градиент функции потерь.
             \subsubsection{Параметр размера шага \textbf{step\_alpha}}
                 Параметр \textbf{step\_alpha $(\alpha)$} используется в градиентном спуске при обновлении весов в формуле \ref{exp1:weight_upd}.
                 Рассмотрим следующие зависимости при разных значениях параметра \textbf{step\_alpha}:
                     \begin{enumerate}\label{exp:dependencies}
                         \item зависимость значения функции потерь от реального времени работы метода
-                        \item зависимость значения функции потерь от итерации метода
                         \item зависимость точности (accuracy) от реального времени работы метода
+                        \item зависимость значения функции потерь от итерации метода
                         \item зависимость точности (accuracy) от итерации метода
                      \end{enumerate}
-                 Соответствующие графики приведены на
+                 Соответствующие графики приведены на: рис. \ref{exp1:gd_func_time}, \ref{exp1:gd_acc_time}, \ref{exp1:gd_func_iter}, \ref{exp1:gd_acc_iter}.
+   
+                 \begin{figure}[H] \label{exp1}
+                     \begin{multicols}{2}
+                         \begin{center}
+                             \caption{Зависимость значения функции потерь от реального времени работы градиентного спуска} \label{exp1:gd_func_time}
+                             \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                             
+                             \caption{Зависимость значения точности (accuracy) от реального времени работы градиентного спуска} \label{exp1:gd_acc_time}
+                             \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                             
+                             \caption{Зависимость значения функции потерь от итерации метода градиентного спуска} \label{exp1:gd_func_iter}
+                             \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                             
+                             \caption{Зависимость значения точности (accuracy) от итерации метода градиентного спуска} \label{exp1:gd_acc_iter}
+                             \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                         \end{center}
+                     \end{multicols}
+                 \end{figure}
             \subsubsection{Параметр размера шага step\_beta}
                 Параметр \textbf{step\_beta $(\beta)$} используется в градиентном спуске при обновлении весов в формуле \ref{exp1:weight_upd}.
-                Аналогично предыдущему пункту рассмотрим зависимости из \ref{exp:dependencies} при разных значениях параметра \textbf{step\_beta} и проанализруем соответсвующие графики:
+                Аналогично предыдущему пункту рассмотрим зависимости из \ref{exp:dependencies} при разных значениях параметра \textbf{step\_beta} и проанализруем соответсвующие графики, представленные на рис. \ref{exp2:gd_func_time}, \ref{exp2:gd_acc_time}, \ref{exp2:gd_func_iter}, \ref{exp2:gd_acc_iter}.
                 
+                
+                \begin{figure}[H] \label{exp1}
+                    \begin{multicols}{2}
+                        \begin{center}
+                            \caption{Зависимость значения функции потерь от реального времени работы градиентного спуска} \label{exp2:gd_func_time}
+                            \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                            
+                            \caption{Зависимость значения точности (accuracy) от реального времени работы градиентного спуска} \label{exp2:gd_acc_time}
+                            \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                            
+                            \caption{Зависимость значения функции потерь от итерации метода градиентного спуска} \label{exp2:gd_func_iter}
+                            \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                            
+                            \caption{Зависимость значения точности (accuracy) от итерации метода градиентного спуска} \label{exp2:gd_acc_iter}
+                            \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                        \end{center}
+                    \end{multicols}
+                \end{figure}
+            
+            \subsubsection{Начальное приближение $w_0$}
+                Начальное приближение нужно для инициализации весов модели. В данной работе были рассмотрены следующие варианты задания $w_0$:
+                \begin{itemize}
+                    \item нулевой вектор
+                    \item вектор с координатами из $U(0, 1)$
+                    \item вектор с координатами из $U(100, 500)$
+                    \item вектор с координатами из $U(1000, 5000)$
+                    \item вектор с координатами из $U(10000, 50000)$
+                    \item вектор с координатами из $N(0, 1)$
+                    \item вектор с координатами из $N(0.5, 0.5)$
+                \end{itemize}
+                Графики зависимостей \ref{exp:dependencies} представлены на рис.  \ref{exp3:gd_func_time}, \ref{exp3:gd_acc_time}, \ref{exp3:gd_func_iter}, \ref{exp3:gd_acc_iter}.
+                \begin{figure}[H] \label{exp1}
+                    \begin{multicols}{2}
+                        \begin{center}
+                            \caption{Зависимость значения функции потерь от реального времени работы стохастического градиентного спуска} \label{exp3:gd_func_time}
+                            \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                            
+                            \caption{Зависимость значения точности (accuracy) от реального времени работы стохастического градиентного спуска} \label{exp3:gd_acc_time}
+                            \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                            
+                            \caption{Зависимость значения функции потерь от итерации метода стохастического градиентного спуска} \label{exp3:gd_func_iter}
+                            \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                            
+                            \caption{Зависимость значения точности (accuracy) от итерации метода стохастического градиентного спуска} \label{exp3:gd_acc_iter}
+                            \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                        \end{center}
+                    \end{multicols}
+                \end{figure}
+            
+            
+       \subsection{Исследование поведения стохастического градиентного спуска}
+            Обновления весов модели при использовании стохастического градиетного спуска происходит по следующей формуле:
+            \begin{equation}\label{exp1:weight_upd_sgd}
+            w_t = w_{t-1} - \frac{\alpha}{t^\beta} \times \frac{1}{|I|} \times \sum_{i \in I}\nabla_{w}\mathcal{L}(x_i, y_i|w_{t-1}),
+            \end{equation}
+            где $t$ - номер итерации, $\beta$ - \textbf{step\_beta}, $I$ - некоторое подможнество индексов тренировочной выборки,  $\nabla_{w}\mathcal{L}(x_i, y_i|w_{t-1})$ - градиент функции потерь.
+            \subsubsection{Параметр размера шага \textbf{step\_alpha}}
+            Параметр \textbf{step\_alpha $(\alpha)$} используется в стохастическом градиентном спуске при обновлении весов в формуле \ref{exp1:weight_upd_sgd}.
+            Рассмотрим следующие зависимости при разных значениях параметра \textbf{step\_alpha}:
+            \begin{enumerate}\label{exp:dependencies_sgd}
+                \item зависимость значения функции потерь от реального времени работы метода
+                \item зависимость точности (accuracy) от реального времени работы метода
+                \item зависимость значения функции потерь от эпохи метода
+                \item зависимость точности (accuracy) от эпохи метода
+            \end{enumerate}
+            Соответствующие графики приведены на: рис. \ref{exp1:sgd_func_time}, \ref{exp1:sgd_acc_time}, \ref{exp1:sgd_func_iter}, \ref{exp1:sgd_acc_iter}.
+            
+            \begin{figure}[H] \label{exp1}
+                \begin{multicols}{2}
+                    \begin{center}
+                        \caption{Зависимость значения функции потерь от реального времени работы градиентного спуска} \label{exp1:sgd_func_time}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения точности (accuracy) от реального времени работы градиентного спуска} \label{exp1:sgd_acc_time}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения функции потерь от эпохи метода градиентного спуска} \label{exp1:sgd_func_iter}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения точности (accuracy) от эпохи метода градиентного спуска} \label{exp1:sgd_acc_iter}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                    \end{center}
+                \end{multicols}
+            \end{figure}
+            \subsubsection{Параметр размера шага step\_beta}
+            Параметр \textbf{step\_beta $(\beta)$} используется в градиентном спуске при обновлении весов в формуле \ref{exp1:weight_upd}.
+            Аналогично предыдущему пункту рассмотрим зависимости из \ref{exp:dependencies_sgd} при разных значениях параметра \textbf{step\_beta} и проанализруем соответсвующие графики, представленные на рис. \ref{exp2:sgd_func_time}, \ref{exp2:sgd_acc_time}, \ref{exp2:sgd_func_iter}, \ref{exp2:sgd_acc_iter}.
+            
+            
+            \begin{figure}[H] \label{exp1}
+                \begin{multicols}{2}
+                    \begin{center}
+                        \caption{Зависимость значения функции потерь от реального времени работы градиентного спуска} \label{exp2:sgd_func_time}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения точности (accuracy) от реального времени работы градиентного спуска} \label{exp2:sgd_acc_time}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения функции потерь от эпохи метода градиентного спуска} \label{exp2:sgd_func_iter}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения точности (accuracy) от эпохи метода градиентного спуска} \label{exp2:sgd_acc_iter}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                    \end{center}
+                \end{multicols}
+            \end{figure}
+            
+            \subsubsection{Размер подвыборки batch\_size}
+                Размер подвыборки определяет количество элементов тренировочной выборки, которые будут использованы для подсчета градиента.
+            
+            Соответствующие графики приведены на рис. \ref{exp3:sgd_func_time}, \ref{exp3:sgd_acc_time}, \ref{exp3:sgd_func_iter}, \ref{exp3:sgd_acc_iter}.
+            \begin{figure}[H] \label{exp1}
+                \begin{multicols}{2}
+                    \begin{center}
+                        \caption{Зависимость значения функции потерь от реального времени работы градиентного спуска} \label{exp3:sgd_func_time}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения точности (accuracy) от реального времени работы градиентного спуска} \label{exp3:sgd_acc_time}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения функции потерь от эпохи метода градиентного спуска} \label{exp3:sgd_func_iter}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения точности (accuracy) от эпохи метода градиентного спуска} \label{exp3:sgd_acc_iter}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                    \end{center}
+                \end{multicols}
+            \end{figure}
+            
+            \subsubsection{Начальное приближение $w_0$}
+            Начальное приближение нужно для инициализации весов модели. В данной работе были рассмотрены следующие варианты задания $w_0$:
+            \begin{itemize}
+                \item нулевой вектор
+                \item вектор с координатами из $U(0, 1)$
+                \item вектор с координатами из $U(100, 500)$
+                \item вектор с координатами из $U(1000, 5000)$
+                \item вектор с координатами из $U(10000, 50000)$
+                \item вектор с координатами из $N(0, 1)$
+                \item вектор с координатами из $N(0.5, 0.5)$
+            \end{itemize}
+            Графики зависимостей \ref{exp:dependencies_sgd} представлены на рис. \ref{exp4:sgd_func_time}, \ref{exp4:sgd_acc_time}, \ref{exp4:sgd_func_iter}, \ref{exp4:sgd_acc_iter}.
+            \begin{figure}[H] \label{exp1}
+                \begin{multicols}{2}
+                    \begin{center}
+                        \caption{Зависимость значения функции потерь от реального времени работы градиентного спуска} \label{exp4:sgd_func_time}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения точности (accuracy) от реального времени работы градиентного спуска} \label{exp4:sgd_acc_time}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения функции потерь от эпохи метода градиентного спуска} \label{exp4:sgd_func_iter}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf}
+                        
+                        \caption{Зависимость значения точности (accuracy) от эпохи метода градиентного спуска} \label{exp4:sgd_acc_iter}
+                        \includegraphics[width=0.5\textwidth, height=0.25\textheight]{../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf}
+                    \end{center}
+                \end{multicols}
+            \end{figure}
+            
+        \subsection{Сравнение градиентного спуска и стохастического градиентного спуска}
+            В данном разделе проведено сравнение методов по трем характеристикам:
+            \begin{itemize}
+                \item время сходимости метода
+                \item точность (accuracy)
+                \item значения функции потерь
+            \end{itemize}
+           Результаты экспериментов приведены на рис. 
+            
+        \subsection{Лемматизация и удаление стоп-слов}
+        
+        \subsection{Сравнение представлений BagOfWords и TF-IDF с различными параметрами}
+        
+    \section{Применение лучших алгоритмов с каждого эксперимента к тестовой выборке}
+    
+       
+        
+        
             
 \end{document}

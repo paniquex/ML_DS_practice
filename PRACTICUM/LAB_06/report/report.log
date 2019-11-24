@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.12)  23 NOV 2019 15:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.12)  24 NOV 2019 22:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1051,15 +1051,19 @@ Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
 Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
 )
 Package hyperref Info: Option `unicode' set `true' on input line 71.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 71.
-
 Package hyperref Info: Option `colorlinks' set `false' on input line 71.
+
 (/usr/share/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty
 Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
 les
+)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count142
+\float@exts=\toks36
+\float@box=\box60
+\@float@everytoks=\toks37
+\@floatcapt=\box61
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
@@ -1073,27 +1077,46 @@ s
 \f@nch@O@erf=\skip72
 \f@nch@O@olf=\skip73
 \f@nch@O@orf=\skip74
-) (./report.aux)
+) (./report.aux
+
+LaTeX Warning: Label `exp1' multiply defined.
+
+
+LaTeX Warning: Label `exp1' multiply defined.
+
+
+LaTeX Warning: Label `exp1' multiply defined.
+
+
+LaTeX Warning: Label `exp1' multiply defined.
+
+
+LaTeX Warning: Label `exp1' multiply defined.
+
+
+LaTeX Warning: Label `exp1' multiply defined.
+
+)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1131,17 +1154,17 @@ LaTeX Font Info:    ... okay on input line 90.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count142
+\scratchcounter=\count143
 \scratchdimen=\dimen174
-\scratchbox=\box60
-\nofMPsegments=\count143
-\nofMParguments=\count144
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count145
+\scratchbox=\box62
+\nofMPsegments=\count144
+\nofMParguments=\count145
+\everyMPshowfont=\toks38
+\MPscratchCnt=\count146
 \MPscratchDim=\dimen175
-\MPnumerator=\count146
-\makeMPintoPDFobject=\count147
-\everyMPtoPDFconversion=\toks37
+\MPnumerator=\count147
+\makeMPintoPDFobject=\count148
+\everyMPtoPDFconversion=\toks39
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -1159,8 +1182,8 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box61
-Package hyperref Info: Link coloring OFF on input line 90.
+\AtBeginShipoutBox=\box63
+Package hyperref Info: Link coloring OFF on input line 91.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -1168,11 +1191,11 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count148
+\c@section@level=\count149
 )
-LaTeX Info: Redefining \ref on input line 90.
-LaTeX Info: Redefining \pageref on input line 90.
-LaTeX Info: Redefining \nameref on input line 90.
+LaTeX Info: Redefining \ref on input line 91.
+LaTeX Info: Redefining \pageref on input line 91.
+LaTeX Info: Redefining \nameref on input line 91.
 
 (./report.out) (./report.out)
 \@outlinefile=\write3
@@ -1214,107 +1237,719 @@ LaTeX Font Info:    Try loading font information for U+rsfs on input line 4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-))
+)
+Overfull \hbox (7.02179pt too wide) in paragraph at lines 13--13
+ [][] [][]\T2A/cmr/m/n/14.4 —‡‚ÌÂÌËÂ „‡-‰Ë-ÂÌÚ-ÌÓ-„Ó ÒÔÛÒ-Í‡ Ë ÒÚÓ-ı‡-ÒÚË-˜Â-
+ÒÍÓ-„Ó „‡-‰Ë-ÂÌÚ-ÌÓ-„Ó ÒÔÛÒ- 
+ []
+
+)
 \tf@toc=\write4
 \openout4 = `report.toc'.
 
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 99.
+(babel)             in language  on input line 100.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 99.
+(babel)             in language  on input line 100.
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 99.
+(babel)             in language  on input line 100.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 99.
+(babel)             in language  on input line 100.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 100.
+(babel)             in language  on input line 101.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 100.
+(babel)             in language  on input line 101.
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 105.
+(babel)             in language  on input line 106.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 105.
+(babel)             in language  on input line 106.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 111.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 112.
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 112.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 113.
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 112.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 113.
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <6> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 112.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 113.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 112.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 113.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 112.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 113.
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 116.
+(babel)             in language  on input line 117.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 116.
+(babel)             in language  on input line 117.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 123.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 123.
+<../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf, id=104, 1084.05pt x 505.89pt
+>
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 138.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
 
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 138--139
+ [] 
+ []
 
-LaTeX Warning: Command \L invalid in math mode on input line 119.
+<../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf, id=105, 1084.05pt x 505.
+89pt>
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 141.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
 
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 141--142
+ [][] 
+ []
 
-LaTeX Warning: Command \L invalid in math mode on input line 119.
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 144.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
 
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 144--145
+ [][] 
+ []
 
-LaTeX Warning: Command \L invalid in math mode on input line 121.
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 147.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
 
-
-LaTeX Warning: Command \L invalid in math mode on input line 121.
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 147--148
+ [][] 
+ []
 
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 122.
+(babel)             in language  on input line 151.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 122.
+(babel)             in language  on input line 151.
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 132.
+(babel)             in language  on input line 151.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 132.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 137.
-Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 137.
-Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 137.
-Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 137.
-Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 137.
+(babel)             in language  on input line 151.
 [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 137.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 151.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 151.
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 160.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 160--161
+ [] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 163.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 163--164
+ [][] 
+ []
+
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 166.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 166--167
+ [][] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 169.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 169--170
+ [][] 
+ []
+
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 173.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 173.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 173.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 173.
+[3pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.173 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.173 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.173 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.173 
+       <../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf> <../graphs/exp1_accur
+acy_GD_alpha_time_beta=0,001.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ../graphs/exp1_accuracy_GD_alpha_time_b
+eta=0,001.pdf): PDF inclusion: multiple pdfs with page group included in a sing
+le page
+>]
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 174.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 174.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 174.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 174.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 174.
+
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 190.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 190--191
+ [] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 193.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 193--194
+ [][] 
+ []
+
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 196.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 196--197
+ [][] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 199.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 199--200
+ [][] 
+ []
+
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 203.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 203.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 203.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 203.
+[4pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.203 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.203 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.203 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.203 
+      ]
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 205.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 205.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 211.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 211.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 217.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 217.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 217.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 217.
+ [5pdfTeX warning (ext4): destination with the same identifier (name{figure.9})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.217                 \item –
+                             ∑–∞–≤–∏—Å–∏–º–æ—Å—Ç—å –∑–Ω–∞—á–µ–Ω–∏—è —Ñ—É–Ω–∫...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.217                 \item –
+                             ∑–∞–≤–∏—Å–∏–º–æ—Å—Ç—å –∑–Ω–∞—á–µ–Ω–∏—è —Ñ—É–Ω–∫...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.217                 \item –
+                             ∑–∞–≤–∏—Å–∏–º–æ—Å—Ç—å –∑–Ω–∞—á–µ–Ω–∏—è —Ñ—É–Ω–∫...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.217                 \item –
+                             ∑–∞–≤–∏—Å–∏–º–æ—Å—Ç—å –∑–Ω–∞—á–µ–Ω–∏—è —Ñ—É–Ω–∫...
+]
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 226.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 226--227
+ [] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 229.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 229--230
+ [][] 
+ []
+
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 232.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 232--233
+ [][] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 235.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 235--236
+ [][] 
+ []
+
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 239.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 239.
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 248.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 248--249
+ [] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 251.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 251--252
+ [][] 
+ []
+
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 254.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 254--255
+ [][] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 257.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 257--258
+ [][] 
+ []
+
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 261.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 261.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 261.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 261.
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.13})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.261 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+14}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.261 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+15}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.261 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+16}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.261 
+      ]
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 262.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 262.
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 270.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 270--271
+ [] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 273.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 273--274
+ [][] 
+ []
+
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 276.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 276--277
+ [][] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 279.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 279--280
+ [][] 
+ []
+
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 283.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 283.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 283.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 283.
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.17})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.283 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+18}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.283 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+19}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.283 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+20}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.283 
+      ]
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 284.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 284.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 284.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 284.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 284.
+
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 300.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 300--301
+ [] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 303.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 303--304
+ [][] 
+ []
+
+File: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf Graphic file (type pdf)
+<use ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_func_GD_alpha_time_beta=0,001.pdf  used
+ on input line 306.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 306--307
+ [][] 
+ []
+
+File: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf Graphic file (type p
+df)
+<use ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf>
+Package pdftex.def Info: ../graphs/exp1_accuracy_GD_alpha_time_beta=0,001.pdf  
+used on input line 309.
+(pdftex.def)             Requested size: 256.07509pt x 186.36584pt.
+
+Overfull \hbox (5.00027pt too wide) in paragraph at lines 309--310
+ [][] 
+ []
+
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 313.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 313.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 313.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 313.
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.21})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.313 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+22}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.313 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+23}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.313 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+24}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.313 
+      ]
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 314.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 314.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 323.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 323.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 325.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 325.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 327.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 327.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 333.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 333.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 333.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 333.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 333.
+ [9pdfTeX warning (ext4): destination with the same identifier (name{figure.25}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.333 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.26}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.333 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.27}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.333 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.28}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.333 \end{document}
+                    ]
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 333.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 333.
+Package babel Info: Redefining russian shorthand "|
+(babel)             in language  on input line 333.
+Package babel Info: Redefining russian shorthand "~
+(babel)             in language  on input line 333.
+ [10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 333.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 137.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 137.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 333.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 333.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: C93ECF928C3CFBEB16D2F63DEB2E57C4;1226.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 137.
+(rerunfilecheck)             Checksum: ED92D98FAA17B09A03A03EBE292F7B6C;5177.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 333.
  ) 
 Here is how much of TeX's memory you used:
- 13697 strings out of 492982
- 188271 string characters out of 6134895
- 290638 words of memory out of 5000000
- 16967 multiletter control sequences out of 15000+600000
+ 13854 strings out of 492982
+ 190815 string characters out of 6134895
+ 302461 words of memory out of 5000000
+ 17066 multiletter control sequences out of 15000+600000
  20785 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,5n,43p,689b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,8n,43p,1305b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr
-/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/t
-ype1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super
-/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb>
-Output written on report.pdf (2 pages, 155457 bytes).
+t/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share
+/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/p
+ublic/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1
+095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb>
+Output written on report.pdf (10 pages, 282315 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
- 87 compressed objects within 1 object stream
- 14 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 340 PDF objects out of 1000 (max. 8388607)
+ 256 compressed objects within 3 object streams
+ 65 named destinations out of 1000 (max. 500000)
+ 151 words of extra memory for PDF output out of 10000 (max. 10000000)
 
