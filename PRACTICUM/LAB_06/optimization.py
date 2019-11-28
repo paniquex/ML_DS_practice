@@ -308,8 +308,8 @@ class SGDClassifier(GDClassifier):
                                                                 random_state=13)
             self.history['accuracy'] = [0]
         else:
-            X_train = X
-            y_train = y
+            X_train = X.copy()
+            y_train = y.copy()
         # Algorithm
         iteration = 1
         relative_epoch_num = 1
@@ -335,6 +335,7 @@ class SGDClassifier(GDClassifier):
             self.history['weights_diff'].append(0)
         iteration += 1
         relative_epoch_num_prev = 1
+        epoch_num_Z = 1
         while iteration <= self.max_iter:
             indices = full_indices[(iteration - 1) * self.batch_size:
                                    iteration * self.batch_size]
@@ -367,6 +368,10 @@ class SGDClassifier(GDClassifier):
                 if np.abs(func_val_curr - func_val_prev) < self.tol:
                     break
             relative_epoch_num += self.batch_size / X.shape[0]
+            if relative_epoch_num >= epoch_num_Z:
+                full_indices = np.random.choice(X_train.shape[0], self.batch_size * self.max_iter)
+                epoch_num_Z += 1
+                # print(epoch_num_Z)
             iteration += 1
         if self.trace:
             return self.history
