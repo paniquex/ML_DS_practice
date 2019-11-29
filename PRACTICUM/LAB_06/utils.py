@@ -8,6 +8,6 @@ def grad_finite_diff(function, w, eps=1e-8):
         e_i = (0, 0, ..., 0, 1, 0, ..., 0)
                           >> i <<
     """
-
-    result = (function(w + eps) - function(w)) / eps
-    return result
+    eye_matrix = np.eye(np.size(w))
+    return (np.apply_along_axis(function, axis=1, arr=w[:, None] + eps * eye_matrix) -
+            function(w)[:, None]).sum(axis=1) / eps

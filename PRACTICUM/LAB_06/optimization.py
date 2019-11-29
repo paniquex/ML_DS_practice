@@ -290,7 +290,7 @@ class SGDClassifier(GDClassifier):
 
         np.random.seed(self.seed)
         if w_0 is None:
-            self.w = np.random.uniform(0, 1, X.shape[1])  # need to make it with random
+            self.w = np.random.uniform(0, 1, X.shape[1])
         else:
             self.w = w_0
         self.trace = trace
