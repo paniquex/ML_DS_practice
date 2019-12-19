@@ -98,36 +98,37 @@ class GradientBoostingMSE:
             Array of size n_objects
         """
 
-        dec_tree = DecisionTreeRegressor(**self.trees_parameters, max_depth=self.max_depth,
-                                         max_features=self.feature_subsample_size)
-        dec_tree.fit(X, y)
         indexes_obj_all = np.arange(X.shape[0])
         alpha = 1
 
-        self.models_arr = [dec_tree]
-        self.alpha_arr = [1]
-        self.obj_indexes = []
+        self.models_arr = []
+        self.alpha_arr = []
 
-        for i in range(self.n_estimators - 1):
+        predict_sum = np.zeros(X.shape[0])
+
+        for i in range(self.n_estimators):
+            dec_tree = DecisionTreeRegressor(**self.trees_parameters, max_depth=self.max_depth,
+                                             max_features=self.feature_subsample_size)
             indexes_obj_subset = np.random.choice(indexes_obj_all,
                                                   size=int(alpha * X.shape[0]),
                                                   replace=False)
-            self.obj_indexes.append(indexes_obj_subset)
+            #             self.obj_indexes.append(indexes_obj_subset)
             # optimize model
-            s_i = 0
-            pred = 0
-            for i in range(len(self.models_arr)):
-                pred += self.models_arr[i].predict(X[self.obj_indexes[i]]) * self.alpha_arr[i]
-                s_i += 2 * (y[self.obj_indexes[i]] - self.models_arr[i].predict(X[self.obj_indexes[i]]))
 
-            dec_tree.fit(X[indexes_obj_subset], s_i)
+            s_i = 2 * (y - predict_sum)
 
+            dec_tree.fit(X, s_i)
+            pred_opt = dec_tree.predict(X)
             # optimize model coef
-            alpha_i = minimize_scalar(lambda alpha_opt: (y[indexes_obj_subset] - pred - alpha_opt * dec_tree.predict(
-                X[indexes_obj_subset])) ** 2,
-                                      bounds=[0, 1e3])
-            self.alpha_arr.append(alpha_i)
+
+            alpha_i = minimize_scalar(lambda alpha_opt: np.mean((- y + predict_sum + alpha_opt * pred_opt) ** 2),
+                                      bounds=(0, 1000),
+                                      method='Bounded').x
+
+            self.alpha_arr.append(alpha_i * self.learning_rate)
             self.models_arr.append(dec_tree)
+
+            predict_sum += self.models_arr[-1].predict(X) * self.alpha_arr[-1]
 
     def predict(self, X):
         """
@@ -141,6 +142,9 @@ class GradientBoostingMSE:
         """
 
         pred = 0
+        preds_all = []
         for i in range(len(self.models_arr)):
-            pred += self.models_arr.predict(X[self.obj_indexes[i]]) * self.alpha_arr[i]
-        return pred
+            preds_all.append(self.models_arr[i].predict(X))
+
+        #             pred += np.sum(np.array(self.alpha_arr)[:i+1, None] * np.array(preds_all), axis=0)
+        return np.sum(np.array(self.alpha_arr)[:, None] * np.array(preds_all), axis=0)
