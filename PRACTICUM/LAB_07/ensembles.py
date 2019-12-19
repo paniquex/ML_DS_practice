@@ -89,7 +89,6 @@ class GradientBoostingMSE:
         self.feature_subsample_size = feature_subsample_size
         self.trees_parameters = trees_parameters
 
-
     def fit(self, X, y):
         """
         X : numpy ndarray
@@ -99,7 +98,36 @@ class GradientBoostingMSE:
             Array of size n_objects
         """
 
+        dec_tree = DecisionTreeRegressor(**self.trees_parameters, max_depth=self.max_depth,
+                                         max_features=self.feature_subsample_size)
+        dec_tree.fit(X, y)
+        indexes_obj_all = np.arange(X.shape[0])
+        alpha = 1
 
+        self.models_arr = [dec_tree]
+        self.alpha_arr = [1]
+        self.obj_indexes = []
+
+        for i in range(self.n_estimators - 1):
+            indexes_obj_subset = np.random.choice(indexes_obj_all,
+                                                  size=int(alpha * X.shape[0]),
+                                                  replace=False)
+            self.obj_indexes.append(indexes_obj_subset)
+            # optimize model
+            s_i = 0
+            pred = 0
+            for i in range(len(self.models_arr)):
+                pred += self.models_arr[i].predict(X[self.obj_indexes[i]]) * self.alpha_arr[i]
+                s_i += 2 * (y[self.obj_indexes[i]] - self.models_arr[i].predict(X[self.obj_indexes[i]]))
+
+            dec_tree.fit(X[indexes_obj_subset], s_i)
+
+            # optimize model coef
+            alpha_i = minimize_scalar(lambda alpha_opt: (y[indexes_obj_subset] - pred - alpha_opt * dec_tree.predict(
+                X[indexes_obj_subset])) ** 2,
+                                      bounds=[0, 1e3])
+            self.alpha_arr.append(alpha_i)
+            self.models_arr.append(dec_tree)
 
     def predict(self, X):
         """
@@ -111,4 +139,8 @@ class GradientBoostingMSE:
         y : numpy ndarray
             Array of size n_objects
         """
-        pass
+
+        pred = 0
+        for i in range(len(self.models_arr)):
+            pred += self.models_arr.predict(X[self.obj_indexes[i]]) * self.alpha_arr[i]
+        return pred
