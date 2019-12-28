@@ -6,6 +6,9 @@
 1. Random Forest (with detailed report (on Russian) and experiments)
 1. Gradient boosting (with detailed report (on Russian) and experiments)
 
+
+## In folder `/MMRO/HW_THEORY_1/` you could find practice in matrix differentiation
+
 ## Also in folder `MMRO` you could find tasks about Data Analysis. Some examples of task, which was solved:
 1. Some typical preprocessing with pandas
 1. A lot of data visualizations with matplotlib + seaborn (for example: visualization of SVC hyperplane, bias and variance of RandomForest, LinearRegression, DecisionTree, etc..)
