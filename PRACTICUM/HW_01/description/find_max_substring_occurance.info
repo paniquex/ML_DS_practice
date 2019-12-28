@@ -1,0 +1,16 @@
+find_max_substring_occurrence
+
+Ограничение времени	4.5 секунд
+Ограничение памяти	64Mb
+Ввод	стандартный ввод или input.txt
+Вывод	стандартный вывод или output.txt
+Написать функцию find_max_substring_occurrence(input_string), принимающую на вход непустую строку input_string. Функция должна возвращать наибольшее число k, такое что input_string совпадает с некоторой своей подстрокой t, выписанной k раз подряд.
+
+Формат ввода
+find_max_substring_occurrence('abab')
+
+Формат вывода
+2
+
+Примечания
+На проверку необходимо отправить файл find_max_substring_occurrence.py с функцией find_max_substring_occurrence(input_string).

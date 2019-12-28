@@ -222,3 +222,23 @@ PRACTICUM/LAB_07/data/target.csv
 PRACTICUM/LAB_07/.ipynb_checkpoints/Experiments-checkpoint.ipynb
 
 PRACTICUM/LAB_07/.ipynb_checkpoints/tests-checkpoint.ipynb
+
+MMRO/HW_05/.ipynb_checkpoints/
+
+PRACTICUM/GD_SGD_Linear_models/.ipynb_checkpoints/
+
+*.pkl
+
+PRACTICUM/GD_SGD_Linear_models/report/report.aux
+
+PRACTICUM/GD_SGD_Linear_models/report/report.log
+
+PRACTICUM/GD_SGD_Linear_models/report/report.out
+
+PRACTICUM/GD_SGD_Linear_models/report/report.synctex.gz
+
+PRACTICUM/GD_SGD_Linear_models/report/report.tex
+
+PRACTICUM/GD_SGD_Linear_models/report/report.toc
+
+PRACTICUM/GD_SGD_Linear_models/svm_894_model
