@@ -27,3 +27,4 @@
 8. Working with **VowpalWabbit** library
 9. Realization of calculation bias, variance and error of algorithms with bootstrap
 10. Using Bayes opt library
+11. And more..
