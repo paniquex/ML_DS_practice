@@ -1,7 +1,7 @@
 ## In this repository you could find implementations of:
 1. KNN classifier (with detailed report (on Russian) and experiments)
 1. KNN regressor
-1. Linear regression with logloss (with detailed report (on Russian) and experiments)
+1. Logistic regression with logloss (with detailed report (on Russian) and experiments)
 1. Gradient Descent and Stohastic Gradient algorithms (with detailed report (on Russian) and experiments)
 1. Random Forest (with detailed report (on Russian) and experiments)
 1. Gradient boosting (with detailed report (on Russian) and experiments)
